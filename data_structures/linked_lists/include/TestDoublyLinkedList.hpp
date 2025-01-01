@@ -179,3 +179,99 @@ TEST(TestDoublyLinkedList, DeleteNode) {
   testList.deleteNode(1);
   EXPECT_EQ(testList.getLength(), 3);
 }
+
+TEST(TestDoublyLinkedList, SwapFirstLast) {
+  dst::dbll::DoublyLinkedList<int> testList(0);
+  testList.append(1);
+  testList.append(2);
+  testList.append(3);
+  testList.append(4);
+  testList.append(5);
+
+  EXPECT_EQ(testList.get(0)->m_value, 0);
+  EXPECT_EQ(testList.get(5)->m_value, 5);
+
+  testList.swapFirstLast();
+
+  EXPECT_EQ(testList.get(0)->m_value, 5);
+  EXPECT_EQ(testList.get(5)->m_value, 0);
+}
+
+TEST(TestDoublyLinkedList, Reverse) {
+  dst::dbll::DoublyLinkedList<int> testList(0);
+  testList.append(1);
+  testList.append(2);
+  testList.append(3);
+  testList.append(4);
+  testList.append(5);
+
+  EXPECT_EQ(testList.get(0)->m_value, 0);
+  EXPECT_EQ(testList.get(1)->m_value, 1);
+  EXPECT_EQ(testList.get(2)->m_value, 2);
+  EXPECT_EQ(testList.get(3)->m_value, 3);
+  EXPECT_EQ(testList.get(4)->m_value, 4);
+  EXPECT_EQ(testList.get(5)->m_value, 5);
+
+  testList.reverse();
+
+  EXPECT_EQ(testList.get(0)->m_value, 5);
+  EXPECT_EQ(testList.get(1)->m_value, 4);
+  EXPECT_EQ(testList.get(2)->m_value, 3);
+  EXPECT_EQ(testList.get(3)->m_value, 2);
+  EXPECT_EQ(testList.get(4)->m_value, 1);
+  EXPECT_EQ(testList.get(5)->m_value, 0);
+}
+
+TEST(TestDoublyLinkedList, IsPalindrome) {
+  dst::dbll::DoublyLinkedList<int> testList(0);
+  testList.append(1);
+  testList.append(2);
+  testList.append(3);
+  testList.append(2);
+  testList.append(1);
+  testList.append(0);
+  EXPECT_TRUE(testList.isPalindrome());
+
+  dst::dbll::DoublyLinkedList<int> testList2(0);
+  testList2.append(1);
+  testList2.append(2);
+  testList2.append(3);
+  testList2.append(3);
+  testList2.append(2);
+  testList2.append(1);
+  testList2.append(0);
+  EXPECT_TRUE(testList2.isPalindrome());
+
+  dst::dbll::DoublyLinkedList<int> testList3(0);
+  EXPECT_TRUE(testList3.isPalindrome());
+
+  dst::dbll::DoublyLinkedList<int> testList4(0);
+  testList4.append(1);
+  testList4.append(2);
+  testList4.append(3);
+  testList4.append(4);
+  testList4.append(2);
+  testList4.append(1);
+  testList4.append(0);
+  EXPECT_FALSE(testList4.isPalindrome());
+}
+
+TEST(TestDoublyLinkedList, SwapPairs) {
+  dst::dbll::DoublyLinkedList<int> testList(0);
+  testList.append(1);
+  testList.append(2);
+  testList.append(3);
+  testList.append(4);
+  testList.append(5);
+  testList.append(6);
+
+  testList.swapPairs();
+
+  EXPECT_EQ(testList.get(0)->m_value, 1);
+  EXPECT_EQ(testList.get(1)->m_value, 0);
+  EXPECT_EQ(testList.get(2)->m_value, 3);
+  EXPECT_EQ(testList.get(3)->m_value, 2);
+  EXPECT_EQ(testList.get(4)->m_value, 5);
+  EXPECT_EQ(testList.get(5)->m_value, 4);
+  EXPECT_EQ(testList.get(6)->m_value, 6);
+}

@@ -182,6 +182,72 @@ public:
     }
   }
 
+  /*
+   * Swap first and last values (not Nodes) using a temporary variable
+   */
+  void swapFirstLast() {
+    if ((m_head == m_tail)) {
+      return;
+    }
+    auto headVal = m_head->m_value;
+    m_head->m_value = m_tail->m_value;
+    m_tail->m_value = headVal;
+  }
+
+  void reverse() {
+    if (m_head == m_tail) {
+      return;
+    }
+    Node<T> *current = m_head;
+    Node<T> *temp = m_head;
+
+    while (current) {
+      temp = current->m_next;
+      current->m_next = current->m_prev;
+      current->m_prev = temp;
+      current = temp;
+    }
+
+    temp = m_head;
+    m_head = m_tail;
+    m_tail = temp;
+  }
+
+  bool isPalindrome() {
+    if (m_tail == m_head) {
+      return true;
+    }
+    Node<T> *fwdNode = m_head;
+    Node<T> *bckNode = m_tail;
+
+    while (fwdNode->m_value == bckNode->m_value) {
+      if ((fwdNode == bckNode) ||
+          ((fwdNode->m_next == bckNode) && (bckNode->m_prev == fwdNode))) {
+        return true;
+      }
+      fwdNode = fwdNode->m_next;
+      bckNode = bckNode->m_prev;
+    }
+
+    return false;
+  }
+
+  void swapPairs() {
+    Node<T> *node = m_head;
+
+    T tmpVal;
+    while (node) {
+      tmpVal = node->m_value;
+      if (node->m_next) {
+        node->m_value = node->m_next->m_value;
+        node->m_next->m_value = tmpVal;
+      } else {
+        break;
+      }
+      node = node->m_next->m_next;
+    }
+  }
+
 private:
   Node<T> *m_head = nullptr;
   Node<T> *m_tail = nullptr;
