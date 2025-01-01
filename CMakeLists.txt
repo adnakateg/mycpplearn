@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.25)
+
 if(${CMAKE_VERSION} VERSION_LESS 3.25)
   cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
 endif()
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -19,5 +20,5 @@ project(CppTraining VERSION 1.0
 
 include(CTest)
 
-add_subdirectory(benkyou)
+add_subdirectory(data_structures)
 
