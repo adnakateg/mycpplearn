@@ -1,5 +1,7 @@
 #pragma once
 
+#include <limits>
+
 namespace dst::tree {
 template <typename T> class Node {
 public:
@@ -14,6 +16,8 @@ public:
 
 template <typename T> class BST {
 public:
+  Node<T> *m_root = nullptr;
+
   BST() { m_root = nullptr; }
 
   bool insert(T _value) {
@@ -77,6 +81,41 @@ public:
     return false;
   }
 
-  Node<T> *m_root = nullptr;
+  T getMin() {
+    Node<T> *node = m_root;
+    T ret = std::numeric_limits<T>::max();
+    while (node) {
+      if ((node->m_left == nullptr) && (node->m_right == nullptr)) {
+        ret = node->m_value;
+        break;
+      }
+      if (node->m_left) {
+        node = node->m_left;
+      } else {
+        node = node->m_right;
+      }
+    }
+    return ret;
+  }
+
+  T getMax() {
+    Node<T> *node = m_root;
+    T ret = std::numeric_limits<T>::max();
+
+    while (node) {
+      if ((node->m_left == nullptr) && (node->m_right == nullptr)) {
+        ret = node->m_value;
+        break;
+      }
+      if (node->m_right) {
+        node = node->m_right;
+        continue;
+      }
+      if (node->m_left) {
+        node = node->m_left;
+      }
+      return ret;
+    }
+  }
 };
 } // namespace dst::tree

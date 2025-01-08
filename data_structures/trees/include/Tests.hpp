@@ -34,3 +34,15 @@ TEST(BSTTests, Contains) {
   EXPECT_TRUE(bst.contains(82));
   EXPECT_FALSE(bst.contains(8));
 }
+
+TEST(BSTTests, GetMin) {
+  dst::tree::BST<int> bst;
+  bst.insert(47);
+  bst.insert(21);
+  bst.insert(76);
+  bst.insert(18);
+  bst.insert(52);
+  bst.insert(82);
+
+  EXPECT_EQ(bst.getMin(), 18);
+}
