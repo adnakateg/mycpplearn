@@ -2,7 +2,9 @@
 
 #include "hash.hpp"
 #include <gtest/gtest.h>
+#include <iostream>
 #include <limits>
+using std::cout;
 
 TEST(HashTables, tests) {
   constexpr size_t SIZE = 7;
@@ -39,4 +41,9 @@ TEST(HashTables, tests) {
   EXPECT_EQ(ht.get("You", std::numeric_limits<int>::max()), 402);
   EXPECT_EQ(ht.get("Once", std::numeric_limits<int>::max()), 502);
   EXPECT_EQ(ht.get("Again", std::numeric_limits<int>::max()), 103);
+
+  for (const auto &e : ht.keys()) {
+    cout << e << "->";
+  }
+  cout << "nullptr\n";
 }

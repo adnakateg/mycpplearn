@@ -3,7 +3,8 @@
 #include <iostream>
 #include <limits>
 #include <string>
-
+#include <vector>
+using std::vector;
 namespace dst::hash {
 
 template <auto THashFnc, size_t SIZE = 7, typename TKey = std::string,
@@ -66,6 +67,18 @@ public:
       }
       std::cout << "nullptr\n";
     }
+  }
+
+  vector<TKey> keys() const {
+    vector<TKey> keys{};
+    for (size_t i = 0; i < SIZE; i++) {
+      Node *temp = m_table[i];
+      while (temp) {
+        keys.push_back(temp->m_key);
+        temp = temp->m_next;
+      }
+    }
+    return keys;
   }
 };
 } // namespace dst::hash

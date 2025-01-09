@@ -1,5 +1,6 @@
 #pragma once
 
+#include "hashing/find_common_numbers.hpp"
 #include "hashing/hash_test.hpp"
 
 #include "linked_lists/doubly_linked_list_test.hpp"
