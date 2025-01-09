@@ -23,7 +23,7 @@ set(PROJN proj)
 
 
 set(SRC_LIST 
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/Main.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 )
 
 add_executable(${PROJN} ${SRC_LIST})
