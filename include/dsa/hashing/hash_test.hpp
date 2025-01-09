@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hash.hpp"
+#include "hash.hpp"
 #include <gtest/gtest.h>
 #include <limits>
 

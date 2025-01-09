@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DoublyLinkedList.hpp"
+#include "doubly_linked_list.hpp"
 #include <gtest/gtest.h>
 
 TEST(TestDoublyLinkedList, Create) {

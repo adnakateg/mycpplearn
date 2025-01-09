@@ -1,4 +1,4 @@
 #pragma once
 
-#include "SinglyLinkedList.hpp"
+#include "singly_linked_list.hpp"
 #include <gtest/gtest.h>
