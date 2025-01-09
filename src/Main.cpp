@@ -1,6 +1,5 @@
+#include "dsa.hpp"
 #include <gtest/gtest.h>
-
-#include "Tests.hpp"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

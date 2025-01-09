@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BST.hpp"
+#include "bst.hpp"
 #include <gtest/gtest.h>
 
 TEST(BSTTests, Insert) {

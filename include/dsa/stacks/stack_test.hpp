@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Stack.hpp"
+#include "stack.hpp"
 #include <gtest/gtest.h>
 #include <limits>
 
