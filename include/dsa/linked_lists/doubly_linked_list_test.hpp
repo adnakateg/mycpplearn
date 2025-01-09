@@ -3,275 +3,278 @@
 #include "doubly_linked_list.hpp"
 #include <gtest/gtest.h>
 
-TEST(TestDoublyLinkedList, Create) {
-  dst::dbll::DoublyLinkedList<int> testList(10);
+class DoublyLinkedListTest : public testing::Test {
+protected:
+  DoublyLinkedListTest() {}
+  void SetUp() override {}
+  void TearDown() override {}
 
-  EXPECT_EQ(testList.getLength(), 1);
+  dst::dbll::DoublyLinkedList<int> m_dll{1};
+};
+
+TEST_F(DoublyLinkedListTest, CreateAndAppend) {
+  EXPECT_EQ(m_dll.getLength(), 1);
+  m_dll.append(20);
+
+  EXPECT_EQ(m_dll.getLength(), 2);
+  m_dll.append(30);
+
+  EXPECT_EQ(m_dll.getLength(), 3);
 }
 
-TEST(TestDoublyLinkedList, CreateAndAppend) {
-  dst::dbll::DoublyLinkedList<int> testList(10);
-  testList.append(20);
+TEST_F(DoublyLinkedListTest, DeleteLast) {
+  dst::dbll::DoublyLinkedList<int> m_dll(10);
 
-  EXPECT_EQ(testList.getLength(), 2);
-  testList.append(30);
+  m_dll.append(20);
+  m_dll.append(30);
 
-  EXPECT_EQ(testList.getLength(), 3);
+  EXPECT_EQ(m_dll.getLength(), 3);
+
+  m_dll.deleteLast();
+  EXPECT_EQ(m_dll.getLength(), 2);
+
+  m_dll.deleteLast();
+  EXPECT_EQ(m_dll.getLength(), 1);
+
+  m_dll.deleteLast();
+  EXPECT_EQ(m_dll.getLength(), 0);
+
+  m_dll.deleteLast();
+  EXPECT_EQ(m_dll.getLength(), 0);
 }
 
-TEST(TestDoublyLinkedList, DeleteLast) {
-  dst::dbll::DoublyLinkedList<int> testList(10);
+TEST_F(DoublyLinkedListTest, PrependTest) {
+  dst::dbll::DoublyLinkedList<int> m_dll(10);
 
-  testList.append(20);
-  testList.append(30);
+  m_dll.prepend(20);
+  EXPECT_EQ(m_dll.getHead()->m_value, 20);
+  m_dll.prepend(30);
+  EXPECT_EQ(m_dll.getHead()->m_value, 30);
+  m_dll.prepend(40);
+  EXPECT_EQ(m_dll.getHead()->m_value, 40);
+  m_dll.prepend(50);
+  EXPECT_EQ(m_dll.getHead()->m_value, 50);
 
-  EXPECT_EQ(testList.getLength(), 3);
-
-  testList.deleteLast();
-  EXPECT_EQ(testList.getLength(), 2);
-
-  testList.deleteLast();
-  EXPECT_EQ(testList.getLength(), 1);
-
-  testList.deleteLast();
-  EXPECT_EQ(testList.getLength(), 0);
-
-  testList.deleteLast();
-  EXPECT_EQ(testList.getLength(), 0);
+  EXPECT_EQ(m_dll.getLength(), 5);
+  m_dll.deleteLast();
+  EXPECT_EQ(m_dll.getLength(), 4);
+  m_dll.deleteLast();
+  EXPECT_EQ(m_dll.getLength(), 3);
+  m_dll.deleteLast();
+  EXPECT_EQ(m_dll.getLength(), 2);
+  m_dll.deleteLast();
+  EXPECT_EQ(m_dll.getLength(), 1);
+  m_dll.deleteLast();
+  EXPECT_EQ(m_dll.getLength(), 0);
+  m_dll.deleteLast();
+  EXPECT_EQ(m_dll.getLength(), 0);
 }
 
-TEST(TestDoublyLinkedList, PrependTest) {
-  dst::dbll::DoublyLinkedList<int> testList(10);
-
-  testList.prepend(20);
-  EXPECT_EQ(testList.getHead()->m_value, 20);
-  testList.prepend(30);
-  EXPECT_EQ(testList.getHead()->m_value, 30);
-  testList.prepend(40);
-  EXPECT_EQ(testList.getHead()->m_value, 40);
-  testList.prepend(50);
-  EXPECT_EQ(testList.getHead()->m_value, 50);
-
-  EXPECT_EQ(testList.getLength(), 5);
-  testList.deleteLast();
-  EXPECT_EQ(testList.getLength(), 4);
-  testList.deleteLast();
-  EXPECT_EQ(testList.getLength(), 3);
-  testList.deleteLast();
-  EXPECT_EQ(testList.getLength(), 2);
-  testList.deleteLast();
-  EXPECT_EQ(testList.getLength(), 1);
-  testList.deleteLast();
-  EXPECT_EQ(testList.getLength(), 0);
-  testList.deleteLast();
-  EXPECT_EQ(testList.getLength(), 0);
-}
-
-TEST(TestDoublyLinkedList, DeleteFirst) {
-  dst::dbll::DoublyLinkedList<int> testList(10);
+TEST_F(DoublyLinkedListTest, DeleteFirst) {
+  dst::dbll::DoublyLinkedList<int> m_dll(10);
 
   // delete 1 item list
-  testList.deleteFirst();
-  EXPECT_EQ(testList.getLength(), 0);
+  m_dll.deleteFirst();
+  EXPECT_EQ(m_dll.getLength(), 0);
 
-  testList.deleteFirst();
-  EXPECT_EQ(testList.getLength(), 0);
+  m_dll.deleteFirst();
+  EXPECT_EQ(m_dll.getLength(), 0);
 
-  testList.append(10);
-  EXPECT_EQ(testList.getLength(), 1);
+  m_dll.append(10);
+  EXPECT_EQ(m_dll.getLength(), 1);
 
-  testList.deleteFirst();
-  EXPECT_EQ(testList.getLength(), 0);
+  m_dll.deleteFirst();
+  EXPECT_EQ(m_dll.getLength(), 0);
 
-  testList.append(10);
-  testList.prepend(20);
-  testList.append(30);
-  testList.prepend(40);
-  EXPECT_EQ(testList.getLength(), 4);
+  m_dll.append(10);
+  m_dll.prepend(20);
+  m_dll.append(30);
+  m_dll.prepend(40);
+  EXPECT_EQ(m_dll.getLength(), 4);
 
-  testList.deleteFirst();
-  EXPECT_EQ(testList.getLength(), 3);
-  testList.deleteFirst();
-  EXPECT_EQ(testList.getLength(), 2);
-  testList.deleteFirst();
-  EXPECT_EQ(testList.getLength(), 1);
-  testList.deleteFirst();
-  EXPECT_EQ(testList.getLength(), 0);
-  testList.deleteFirst();
-  EXPECT_EQ(testList.getLength(), 0);
-  testList.deleteFirst();
-  EXPECT_EQ(testList.getLength(), 0);
-  testList.deleteFirst();
-  EXPECT_EQ(testList.getLength(), 0);
+  m_dll.deleteFirst();
+  EXPECT_EQ(m_dll.getLength(), 3);
+  m_dll.deleteFirst();
+  EXPECT_EQ(m_dll.getLength(), 2);
+  m_dll.deleteFirst();
+  EXPECT_EQ(m_dll.getLength(), 1);
+  m_dll.deleteFirst();
+  EXPECT_EQ(m_dll.getLength(), 0);
+  m_dll.deleteFirst();
+  EXPECT_EQ(m_dll.getLength(), 0);
+  m_dll.deleteFirst();
+  EXPECT_EQ(m_dll.getLength(), 0);
+  m_dll.deleteFirst();
+  EXPECT_EQ(m_dll.getLength(), 0);
 }
 
-TEST(TestDoublyLinkedList, GetIndex) {
-  dst::dbll::DoublyLinkedList<int> testList(10);
-  testList.append(20);
-  testList.append(30);
-  testList.append(40);
-  testList.append(50);
+TEST_F(DoublyLinkedListTest, GetIndex) {
+  dst::dbll::DoublyLinkedList<int> m_dll(10);
+  m_dll.append(20);
+  m_dll.append(30);
+  m_dll.append(40);
+  m_dll.append(50);
 
-  EXPECT_EQ(testList.get(0)->m_value, 10);
-  EXPECT_EQ(testList.get(1)->m_value, 20);
-  EXPECT_EQ(testList.get(2)->m_value, 30);
-  EXPECT_EQ(testList.get(3)->m_value, 40);
-  EXPECT_EQ(testList.get(4)->m_value, 50);
+  EXPECT_EQ(m_dll.get(0)->m_value, 10);
+  EXPECT_EQ(m_dll.get(1)->m_value, 20);
+  EXPECT_EQ(m_dll.get(2)->m_value, 30);
+  EXPECT_EQ(m_dll.get(3)->m_value, 40);
+  EXPECT_EQ(m_dll.get(4)->m_value, 50);
 }
 
-TEST(TestDoublyLinkedList, SetIndex) {
-  dst::dbll::DoublyLinkedList<int> testList(10);
-  testList.append(20);
-  testList.append(30);
-  testList.append(40);
-  testList.append(50);
+TEST_F(DoublyLinkedListTest, SetIndex) {
+  dst::dbll::DoublyLinkedList<int> m_dll(10);
+  m_dll.append(20);
+  m_dll.append(30);
+  m_dll.append(40);
+  m_dll.append(50);
 
-  testList.set(2, 100);
-  EXPECT_EQ(testList.get(2)->m_value, 100);
+  m_dll.set(2, 100);
+  EXPECT_EQ(m_dll.get(2)->m_value, 100);
 
-  testList.set(4, 200);
-  EXPECT_EQ(testList.get(4)->m_value, 200);
+  m_dll.set(4, 200);
+  EXPECT_EQ(m_dll.get(4)->m_value, 200);
 }
 
-TEST(TestDoublyLinkedList, Insert) {
-  dst::dbll::DoublyLinkedList<int> testList(10);
-  testList.deleteFirst();
-  EXPECT_EQ(testList.getLength(), 0);
+TEST_F(DoublyLinkedListTest, Insert) {
+  dst::dbll::DoublyLinkedList<int> m_dll(10);
+  m_dll.deleteFirst();
+  EXPECT_EQ(m_dll.getLength(), 0);
 
-  testList.insert(0, 20);
-  EXPECT_EQ(testList.get(0)->m_value, 20);
+  m_dll.insert(0, 20);
+  EXPECT_EQ(m_dll.get(0)->m_value, 20);
 
-  testList.append(30);
-  testList.append(40);
-  testList.append(50);
+  m_dll.append(30);
+  m_dll.append(40);
+  m_dll.append(50);
 
-  EXPECT_FALSE(testList.insert(10, 10));
+  EXPECT_FALSE(m_dll.insert(10, 10));
 
-  testList.insert(4, 60);
-  EXPECT_EQ(testList.get(4)->m_value, 60);
+  m_dll.insert(4, 60);
+  EXPECT_EQ(m_dll.get(4)->m_value, 60);
 
-  testList.insert(4, 70);
-  EXPECT_EQ(testList.get(4)->m_value, 70);
-  EXPECT_EQ(testList.get(5)->m_value, 60);
+  m_dll.insert(4, 70);
+  EXPECT_EQ(m_dll.get(4)->m_value, 70);
+  EXPECT_EQ(m_dll.get(5)->m_value, 60);
 }
 
-TEST(TestDoublyLinkedList, DeleteNode) {
-  dst::dbll::DoublyLinkedList<int> testList(10);
-  testList.deleteNode(0);
-  EXPECT_EQ(testList.getLength(), 0);
+TEST_F(DoublyLinkedListTest, DeleteNode) {
+  dst::dbll::DoublyLinkedList<int> m_dll(10);
+  m_dll.deleteNode(0);
+  EXPECT_EQ(m_dll.getLength(), 0);
 
-  testList.deleteNode(3);
-  EXPECT_EQ(testList.getLength(), 0);
+  m_dll.deleteNode(3);
+  EXPECT_EQ(m_dll.getLength(), 0);
 
-  testList.append(10);
-  testList.append(20);
-  testList.append(30);
-  testList.append(40);
-  testList.append(50);
-  EXPECT_EQ(testList.getLength(), 5);
+  m_dll.append(10);
+  m_dll.append(20);
+  m_dll.append(30);
+  m_dll.append(40);
+  m_dll.append(50);
+  EXPECT_EQ(m_dll.getLength(), 5);
 
-  testList.deleteNode(5);
-  EXPECT_EQ(testList.getLength(), 5);
+  m_dll.deleteNode(5);
+  EXPECT_EQ(m_dll.getLength(), 5);
 
-  testList.deleteNode(4);
-  EXPECT_EQ(testList.getLength(), 4);
+  m_dll.deleteNode(4);
+  EXPECT_EQ(m_dll.getLength(), 4);
 
-  testList.deleteNode(1);
-  EXPECT_EQ(testList.getLength(), 3);
+  m_dll.deleteNode(1);
+  EXPECT_EQ(m_dll.getLength(), 3);
 }
 
-TEST(TestDoublyLinkedList, SwapFirstLast) {
-  dst::dbll::DoublyLinkedList<int> testList(0);
-  testList.append(1);
-  testList.append(2);
-  testList.append(3);
-  testList.append(4);
-  testList.append(5);
+TEST_F(DoublyLinkedListTest, SwapFirstLast) {
+  dst::dbll::DoublyLinkedList<int> m_dll(0);
+  m_dll.append(1);
+  m_dll.append(2);
+  m_dll.append(3);
+  m_dll.append(4);
+  m_dll.append(5);
 
-  EXPECT_EQ(testList.get(0)->m_value, 0);
-  EXPECT_EQ(testList.get(5)->m_value, 5);
+  EXPECT_EQ(m_dll.get(0)->m_value, 0);
+  EXPECT_EQ(m_dll.get(5)->m_value, 5);
 
-  testList.swapFirstLast();
+  m_dll.swapFirstLast();
 
-  EXPECT_EQ(testList.get(0)->m_value, 5);
-  EXPECT_EQ(testList.get(5)->m_value, 0);
+  EXPECT_EQ(m_dll.get(0)->m_value, 5);
+  EXPECT_EQ(m_dll.get(5)->m_value, 0);
 }
 
-TEST(TestDoublyLinkedList, Reverse) {
-  dst::dbll::DoublyLinkedList<int> testList(0);
-  testList.append(1);
-  testList.append(2);
-  testList.append(3);
-  testList.append(4);
-  testList.append(5);
+TEST_F(DoublyLinkedListTest, Reverse) {
+  dst::dbll::DoublyLinkedList<int> m_dll(0);
+  m_dll.append(1);
+  m_dll.append(2);
+  m_dll.append(3);
+  m_dll.append(4);
+  m_dll.append(5);
 
-  EXPECT_EQ(testList.get(0)->m_value, 0);
-  EXPECT_EQ(testList.get(1)->m_value, 1);
-  EXPECT_EQ(testList.get(2)->m_value, 2);
-  EXPECT_EQ(testList.get(3)->m_value, 3);
-  EXPECT_EQ(testList.get(4)->m_value, 4);
-  EXPECT_EQ(testList.get(5)->m_value, 5);
+  EXPECT_EQ(m_dll.get(0)->m_value, 0);
+  EXPECT_EQ(m_dll.get(1)->m_value, 1);
+  EXPECT_EQ(m_dll.get(2)->m_value, 2);
+  EXPECT_EQ(m_dll.get(3)->m_value, 3);
+  EXPECT_EQ(m_dll.get(4)->m_value, 4);
+  EXPECT_EQ(m_dll.get(5)->m_value, 5);
 
-  testList.reverse();
+  m_dll.reverse();
 
-  EXPECT_EQ(testList.get(0)->m_value, 5);
-  EXPECT_EQ(testList.get(1)->m_value, 4);
-  EXPECT_EQ(testList.get(2)->m_value, 3);
-  EXPECT_EQ(testList.get(3)->m_value, 2);
-  EXPECT_EQ(testList.get(4)->m_value, 1);
-  EXPECT_EQ(testList.get(5)->m_value, 0);
+  EXPECT_EQ(m_dll.get(0)->m_value, 5);
+  EXPECT_EQ(m_dll.get(1)->m_value, 4);
+  EXPECT_EQ(m_dll.get(2)->m_value, 3);
+  EXPECT_EQ(m_dll.get(3)->m_value, 2);
+  EXPECT_EQ(m_dll.get(4)->m_value, 1);
+  EXPECT_EQ(m_dll.get(5)->m_value, 0);
 }
 
-TEST(TestDoublyLinkedList, IsPalindrome) {
-  dst::dbll::DoublyLinkedList<int> testList(0);
-  testList.append(1);
-  testList.append(2);
-  testList.append(3);
-  testList.append(2);
-  testList.append(1);
-  testList.append(0);
-  EXPECT_TRUE(testList.isPalindrome());
+TEST_F(DoublyLinkedListTest, IsPalindrome) {
+  dst::dbll::DoublyLinkedList<int> m_dll(0);
+  m_dll.append(1);
+  m_dll.append(2);
+  m_dll.append(3);
+  m_dll.append(2);
+  m_dll.append(1);
+  m_dll.append(0);
+  EXPECT_TRUE(m_dll.isPalindrome());
 
-  dst::dbll::DoublyLinkedList<int> testList2(0);
-  testList2.append(1);
-  testList2.append(2);
-  testList2.append(3);
-  testList2.append(3);
-  testList2.append(2);
-  testList2.append(1);
-  testList2.append(0);
-  EXPECT_TRUE(testList2.isPalindrome());
+  dst::dbll::DoublyLinkedList<int> m_dll2(0);
+  m_dll2.append(1);
+  m_dll2.append(2);
+  m_dll2.append(3);
+  m_dll2.append(3);
+  m_dll2.append(2);
+  m_dll2.append(1);
+  m_dll2.append(0);
+  EXPECT_TRUE(m_dll2.isPalindrome());
 
-  dst::dbll::DoublyLinkedList<int> testList3(0);
-  EXPECT_TRUE(testList3.isPalindrome());
+  dst::dbll::DoublyLinkedList<int> m_dll3(0);
+  EXPECT_TRUE(m_dll3.isPalindrome());
 
-  dst::dbll::DoublyLinkedList<int> testList4(0);
-  testList4.append(1);
-  testList4.append(2);
-  testList4.append(3);
-  testList4.append(4);
-  testList4.append(2);
-  testList4.append(1);
-  testList4.append(0);
-  EXPECT_FALSE(testList4.isPalindrome());
+  dst::dbll::DoublyLinkedList<int> m_dll4(0);
+  m_dll4.append(1);
+  m_dll4.append(2);
+  m_dll4.append(3);
+  m_dll4.append(4);
+  m_dll4.append(2);
+  m_dll4.append(1);
+  m_dll4.append(0);
+  EXPECT_FALSE(m_dll4.isPalindrome());
 }
 
-TEST(TestDoublyLinkedList, SwapPairs) {
-  dst::dbll::DoublyLinkedList<int> testList(0);
-  testList.append(1);
-  testList.append(2);
-  testList.append(3);
-  testList.append(4);
-  testList.append(5);
-  testList.append(6);
+TEST_F(DoublyLinkedListTest, SwapPairs) {
+  dst::dbll::DoublyLinkedList<int> m_dll(0);
+  m_dll.append(1);
+  m_dll.append(2);
+  m_dll.append(3);
+  m_dll.append(4);
+  m_dll.append(5);
+  m_dll.append(6);
 
-  testList.swapPairs();
+  m_dll.swapPairs();
 
-  EXPECT_EQ(testList.get(0)->m_value, 1);
-  EXPECT_EQ(testList.get(1)->m_value, 0);
-  EXPECT_EQ(testList.get(2)->m_value, 3);
-  EXPECT_EQ(testList.get(3)->m_value, 2);
-  EXPECT_EQ(testList.get(4)->m_value, 5);
-  EXPECT_EQ(testList.get(5)->m_value, 4);
-  EXPECT_EQ(testList.get(6)->m_value, 6);
+  EXPECT_EQ(m_dll.get(0)->m_value, 1);
+  EXPECT_EQ(m_dll.get(1)->m_value, 0);
+  EXPECT_EQ(m_dll.get(2)->m_value, 3);
+  EXPECT_EQ(m_dll.get(3)->m_value, 2);
+  EXPECT_EQ(m_dll.get(4)->m_value, 5);
+  EXPECT_EQ(m_dll.get(5)->m_value, 4);
+  EXPECT_EQ(m_dll.get(6)->m_value, 6);
 }
