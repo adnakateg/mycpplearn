@@ -1,6 +1,8 @@
 #pragma once
 
+#include <iostream>
 #include <limits>
+using std::cout;
 
 namespace dst::tree {
 template <typename T> class Node {
@@ -65,6 +67,11 @@ public:
     return false;
   }
 
+  bool r_contains(T _value) {
+    cout << "\nRecursive search; " << _value << "\n";
+    return contains(m_root, _value);
+  }
+
   bool remove(T _value) {
     Node<T> *temp = m_root;
 
@@ -115,6 +122,23 @@ public:
         node = node->m_left;
       }
       return ret;
+    }
+  }
+
+private:
+  bool contains(Node<T> *_node, T _value) {
+    if (_node == nullptr) {
+      cout << "NOTFOUND\n";
+      return false;
+    }
+    if (_node->m_value == _value) {
+      cout << "FOUND\n";
+      return true;
+    }
+    if (_value < _node->m_value) {
+      return contains(_node->m_left, _value);
+    } else {
+      return contains(_node->m_right, _value);
     }
   }
 };
