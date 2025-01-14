@@ -18,10 +18,10 @@ vector<int> sub_array_sum(const vector<int> &nums, int target) {
   int sums{};
   for (int i = 0; i < nums.size(); ++i) {
     sums = sums + nums[i];
-    uoMap.insert({sums, i});
     if (sums == target) {
       return {0, i};
     }
+    uoMap.insert({sums, i});
     auto ite = uoMap.find(sums - target);
     if (ite != uoMap.end()) {
       return {ite->second + 1, i};
