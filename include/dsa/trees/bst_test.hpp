@@ -59,3 +59,44 @@ TEST(BSTTests, RContains) {
   EXPECT_TRUE(bst.r_contains(18));
   EXPECT_FALSE(bst.r_contains(111));
 }
+
+TEST(BSTTests, RInsert) {
+  dst::tree::BST<int> bst{};
+  bst.r_insert(47);
+  bst.r_insert(21);
+  bst.r_insert(76);
+  bst.r_insert(18);
+  bst.r_insert(52);
+  bst.r_insert(82);
+
+  EXPECT_TRUE(bst.r_contains(18));
+  EXPECT_FALSE(bst.r_contains(111));
+}
+
+TEST(BSTTests, RminVal) {
+  dst::tree::BST<int> bst{};
+  bst.r_insert(47);
+  bst.r_insert(21);
+  bst.r_insert(76);
+  bst.r_insert(18);
+  bst.r_insert(27);
+  bst.r_insert(52);
+  bst.r_insert(82);
+
+  EXPECT_EQ(bst.minValue(bst.m_root), 18);
+  EXPECT_EQ(bst.minValue(bst.m_root->m_right), 52);
+}
+
+TEST(BSTTests, Delete) {
+  dst::tree::BST<int> bst{};
+  bst.r_insert(47);
+  bst.r_insert(21);
+  bst.r_insert(76);
+  bst.r_insert(18);
+  bst.r_insert(27);
+  bst.r_insert(52);
+  bst.r_insert(82);
+
+  EXPECT_EQ(bst.minValue(bst.m_root), 18);
+  EXPECT_EQ(bst.minValue(bst.m_root->m_right), 52);
+}

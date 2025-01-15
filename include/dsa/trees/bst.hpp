@@ -68,24 +68,47 @@ public:
   }
 
   bool r_contains(T _value) {
-    cout << "\nRecursive search; " << _value << "\n";
-    return contains(m_root, _value);
+    cout << "\nRecursive search: " << _value << "\n";
+    return rcontains(m_root, _value);
+  }
+  void r_insert(T _value) {
+    cout << "\nRecursive insert: " << _value << "\n";
+    if (m_root == nullptr) {
+      m_root = new Node<T>(_value);
+    } else {
+      rinsert(m_root, _value);
+    }
   }
 
-  bool remove(T _value) {
-    Node<T> *temp = m_root;
+  void deleteNode(T value) { m_root = deleteNode(m_root, value); }
 
-    while (temp) {
-      if (temp->m_value == _value) {
-        break;
-      }
-      if (temp->m_value > _value) {
-        temp = temp->m_left;
+  Node<T> *deleteNode(Node<T> *currentNode, int _value) {
+    if (currentNode == nullptr) {
+      return nullptr;
+    }
+    if (_value < currentNode->m_value) {
+      currentNode = deleteNode(currentNode->m_left, _value);
+    } else if (_value > currentNode->m_value) {
+      currentNode = deleteNode(currentNode->m_right, _value);
+    } else {
+      if (currentNode->m_left == currentNode->m_right) { // leaf node
+        delete (currentNode);
+        return nullptr;
+      } else if (currentNode->m_left == nullptr) {
+        Node<T> *temp = currentNode->m_right;
+        delete currentNode;
+        return temp;
+      } else if (currentNode->m_right == nullptr) {
+        Node<T> *temp = currentNode->m_left;
+        delete currentNode;
+        return temp;
       } else {
-        temp = temp->m_right;
+        T subTreeMin = minValue(currentNode->m_right);
+        currentNode->m_value = subTreeMin;
+        currentNode->m_right = deleteNode(currentNode->m_right, subTreeMin);
       }
     }
-    return false;
+    return currentNode;
   }
 
   T getMin() {
@@ -124,9 +147,15 @@ public:
       return ret;
     }
   }
+  T minValue(Node<T> *currentNode) {
+    while (currentNode->m_left) {
+      currentNode = currentNode->m_left;
+    }
+    return currentNode->m_value;
+  }
 
 private:
-  bool contains(Node<T> *_node, T _value) {
+  bool rcontains(Node<T> *_node, T _value) {
     if (_node == nullptr) {
       cout << "NOTFOUND\n";
       return false;
@@ -136,10 +165,22 @@ private:
       return true;
     }
     if (_value < _node->m_value) {
-      return contains(_node->m_left, _value);
+      return rcontains(_node->m_left, _value);
     } else {
-      return contains(_node->m_right, _value);
+      return rcontains(_node->m_right, _value);
     }
+  }
+
+  Node<T> *rinsert(Node<T> *rnode, T _value) {
+    if (rnode == nullptr) {
+      return new Node<T>(_value);
+    }
+    if (_value < rnode->m_value) {
+      rnode->m_left = rinsert(rnode->m_left, _value);
+    } else {
+      rnode->m_right = rinsert(rnode->m_right, _value);
+    }
+    return rnode;
   }
 };
 } // namespace dst::tree
