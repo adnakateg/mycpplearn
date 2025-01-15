@@ -83,8 +83,8 @@ TEST(BSTTests, RminVal) {
   bst.r_insert(52);
   bst.r_insert(82);
 
-  EXPECT_EQ(bst.minValue(bst.m_root), 18);
-  EXPECT_EQ(bst.minValue(bst.m_root->m_right), 52);
+  EXPECT_EQ(bst.r_minValue(bst.m_root), 18);
+  EXPECT_EQ(bst.r_minValue(bst.m_root->m_right), 52);
 }
 
 TEST(BSTTests, Delete) {
@@ -97,6 +97,6 @@ TEST(BSTTests, Delete) {
   bst.r_insert(52);
   bst.r_insert(82);
 
-  EXPECT_EQ(bst.minValue(bst.m_root), 18);
-  EXPECT_EQ(bst.minValue(bst.m_root->m_right), 52);
+  EXPECT_EQ(bst.r_minValue(bst.m_root), 18);
+  EXPECT_EQ(bst.r_minValue(bst.m_root->m_right), 52);
 }

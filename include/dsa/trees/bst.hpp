@@ -147,7 +147,7 @@ public:
       return ret;
     }
   }
-  T minValue(Node<T> *currentNode) {
+  T r_minValue(Node<T> *currentNode) {
     while (currentNode->m_left) {
       currentNode = currentNode->m_left;
     }
