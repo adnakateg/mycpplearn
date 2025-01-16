@@ -2,7 +2,10 @@
 
 #include <iostream>
 #include <limits>
+#include <queue>
+
 using std::cout;
+using std::queue;
 
 namespace dst::tree {
 template <typename T> class Node {
@@ -68,11 +71,11 @@ public:
   }
 
   bool r_contains(T _value) {
-    cout << "\nRecursive search: " << _value << "\n";
+    // cout << "\nRecursive search: " << _value << "\n";
     return rcontains(m_root, _value);
   }
   void r_insert(T _value) {
-    cout << "\nRecursive insert: " << _value << "\n";
+    // cout << "\nRecursive insert: " << _value << "\n";
     if (m_root == nullptr) {
       m_root = new Node<T>(_value);
     } else {
@@ -147,11 +150,80 @@ public:
       return ret;
     }
   }
+
   T r_minValue(Node<T> *currentNode) {
     while (currentNode->m_left) {
       currentNode = currentNode->m_left;
     }
     return currentNode->m_value;
+  }
+
+  void bfs() {
+    cout << "BFS : ";
+    std::queue<Node<T> *> myQueue;
+    if (m_root) {
+      myQueue.push(m_root);
+      while (myQueue.size()) {
+        Node<T> *node = myQueue.front();
+        cout << node->m_value << " ";
+        myQueue.pop();
+        if (node->m_left) {
+          myQueue.push(node->m_left);
+        }
+        if (node->m_right) {
+          myQueue.push(node->m_right);
+        }
+      }
+    }
+    cout << "\n";
+  }
+
+  void dfs_pre_order() {
+    cout << "DFS PRE ORDER:\n";
+    dfs_pre_order(m_root);
+    cout << "\n\n";
+  }
+
+  void dfs_pre_order(Node<T> *node) {
+    cout << node->m_value << " ";
+    if (node->m_left) {
+      dfs_pre_order(node->m_left);
+    }
+    if (node->m_right) {
+      dfs_pre_order(node->m_right);
+    }
+  }
+
+  void dfs_post_order() {
+    cout << "DFS POST ORDER:\n";
+    dfs_post_order(m_root);
+    cout << "\n\n";
+  }
+
+  void dfs_post_order(Node<T> *node) {
+    if (node->m_left) {
+      dfs_post_order(node->m_left);
+    }
+    if (node->m_right) {
+      dfs_post_order(node->m_right);
+    }
+    cout << node->m_value << " ";
+  }
+
+  void dfs_in_order() {
+    cout << "DFS IN ORDER:\n";
+    dfs_in_order(m_root);
+    cout << "\n\n";
+  }
+
+  void dfs_in_order(Node<T> *node) {
+    if (node->m_left) {
+      dfs_in_order(node->m_left);
+    }
+    cout << node->m_value << " ";
+    if (node->m_right) {
+      dfs_in_order(node->m_right);
+    }
   }
 
 private:

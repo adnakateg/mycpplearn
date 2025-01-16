@@ -97,6 +97,10 @@ TEST(BSTTests, Delete) {
   bst.r_insert(52);
   bst.r_insert(82);
 
+  bst.bfs();
+  bst.dfs_pre_order();
+  bst.dfs_post_order();
+  bst.dfs_in_order();
   EXPECT_EQ(bst.r_minValue(bst.m_root), 18);
   EXPECT_EQ(bst.r_minValue(bst.m_root->m_right), 52);
 }

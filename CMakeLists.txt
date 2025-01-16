@@ -43,4 +43,4 @@ target_include_directories(${PROJN} PRIVATE
 
 target_link_libraries(${PROJN} LINK_PUBLIC ${MY_LINK_LIBRARIES})
 
-add_compile_options(-Wall -g -O3)
+add_compile_options(-Wall -g -O3 -v)
