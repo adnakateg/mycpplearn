@@ -38,7 +38,9 @@ set(MY_LINK_LIBRARIES
 )
 
 target_include_directories(${PROJN} PRIVATE 
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/
   ${CMAKE_CURRENT_SOURCE_DIR}/include/dsa/
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/effective_cpp/
 )
 
 target_link_libraries(${PROJN} LINK_PUBLIC ${MY_LINK_LIBRARIES})
